@@ -1,13 +1,14 @@
 import { Lock, Mail } from 'lucide-react';
+import { Link } from 'react-router-dom';
 import { Button, Card, CardContent, CardFooter, CardHeader, Input } from '../libs/shadcn-ui';
 
-function LoginPage() {
+function RegisterPage() {
   return (
     <>
       <div className="flex items-center justify-center min-h-screen bg-gray-100">
         <Card className="w-full max-w-md">
           <CardHeader>
-            <h2 className="text-2xl font-bold text-center">Login</h2>
+            <h2 className="text-2xl font-bold text-center">Register</h2>
           </CardHeader>
           <CardContent>
             <form className="space-y-4">
@@ -48,14 +49,14 @@ function LoginPage() {
                 </div>
               </div>
               <Button type="submit" className="w-full">
-                Sign in
+                Sign up
               </Button>
             </form>
           </CardContent>
           <CardFooter>
-            <a href="#" className="text-sm text-blue-600 hover:underline">
-              Register
-            </a>
+            <Link to="/login" className="text-sm text-blue-600 hover:underline">
+              Login
+            </Link>
           </CardFooter>
         </Card>
       </div>
@@ -63,4 +64,4 @@ function LoginPage() {
   );
 }
 
-export default LoginPage;
+export default RegisterPage;
