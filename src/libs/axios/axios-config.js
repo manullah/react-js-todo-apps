@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { camelizeKeys } from 'humps';
-import { CONFIG } from '../../utils/config-global';
+import { CONFIG } from '../../utils/constant/global-config';
 
 const axiosInstance = axios.create({
   baseURL: CONFIG.site.apiUrl,

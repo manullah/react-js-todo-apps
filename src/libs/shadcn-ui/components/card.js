@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import { cn } from '../../tailwindcss';
+import { cn } from '../../tailwindcss/utils';
 
 const Card = React.forwardRef(({ className, ...props }, ref) => (
   <div

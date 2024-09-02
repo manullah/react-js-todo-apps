@@ -3,12 +3,18 @@ import ReactDOM from 'react-dom/client';
 import reportWebVitals from './reportWebVitals';
 
 import './libs/tailwindcss/tailwindcss.css';
-import OwnRouterProvider from './libs/react-router/components/OwnRouteProvider';
+import ProviderReactRouter from './libs/react-router/components/ProviderReactRouter';
+import ProviderReactQuery from './libs/react-query/components/ProviderReactQuery';
+import { AuthProvider } from './modules/auth/components/AuthProvider';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <OwnRouterProvider />
+    <AuthProvider>
+      <ProviderReactQuery>
+        <ProviderReactRouter />
+      </ProviderReactQuery>
+    </AuthProvider>
   </React.StrictMode>
 );
 

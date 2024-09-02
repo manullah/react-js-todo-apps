@@ -1,6 +1,8 @@
 import { useNavigate, useRouteError } from 'react-router-dom';
-import { Button, Card, CardContent, CardFooter, CardHeader } from '../libs/shadcn-ui';
 import { AlertCircle } from 'lucide-react';
+import { Card, CardContent, CardFooter, CardHeader } from '../libs/shadcn-ui/components/card';
+import { Button } from '../libs/shadcn-ui/components/button';
+import { paths } from '../utils/constant/path-config';
 
 function ErrorPage() {
   const error = useRouteError();
@@ -30,7 +32,7 @@ function ErrorPage() {
           <Button variant="outline" onClick={() => navigate(-1)}>
             Go Back
           </Button>
-          <Button onClick={() => navigate('/')}>Go to Homepage</Button>
+          <Button onClick={() => navigate(paths.root)}>Go to Homepage</Button>
         </CardFooter>
       </Card>
     </div>

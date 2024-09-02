@@ -1,5 +1,13 @@
+import { useAuthContext } from '../modules/auth/hooks/use-auth-context';
+
 function HomePage() {
-  return <>Hello world!</>;
+  const { user } = useAuthContext();
+
+  return (
+    <>
+      Hello world! <br /> {JSON.stringify(user)}
+    </>
+  );
 }
 
 export default HomePage;
