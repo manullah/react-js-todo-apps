@@ -1,4 +1,4 @@
-export function jwtDecode(token) {
+export const jwtDecode = token => {
   try {
     if (!token) return null;
 
@@ -16,4 +16,4 @@ export function jwtDecode(token) {
     console.error('Error decoding token:', error);
     throw error;
   }
-}
+};

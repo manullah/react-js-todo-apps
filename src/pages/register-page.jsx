@@ -13,6 +13,7 @@ import {
 } from '../libs/shadcn-ui/components/form';
 import { useAuthRegisterForm } from '../modules/auth/hooks/use-auth-register-form';
 import { paths } from '../utils/constant/path-config';
+import { Loading } from '../components/Loading';
 
 function RegisterPage() {
   const navigate = useNavigate();
@@ -45,7 +46,7 @@ function RegisterPage() {
                           <Input placeholder="Enter your email" className="pl-10" {...field} />
                           <Mail
                             className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400"
-                            size={18}
+                            size={16}
                           />
                         </div>
                       </FormControl>
@@ -70,7 +71,7 @@ function RegisterPage() {
                           />
                           <Lock
                             className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400"
-                            size={18}
+                            size={16}
                           />
                         </div>
                       </FormControl>
@@ -80,7 +81,7 @@ function RegisterPage() {
                 />
 
                 <Button type="submit" className="w-full" disabled={isLoading}>
-                  {isLoading ? 'Loading...' : 'Sign up'}
+                  {isLoading ? <Loading /> : 'Sign up'}
                 </Button>
               </form>
             </Form>

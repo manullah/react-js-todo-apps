@@ -4,8 +4,10 @@ import { AuthContext } from '../context/auth-context';
 import { jwtDecode } from '../../../utils/utils';
 import { CONFIG } from '../../../utils/constant/global-config';
 import { useEffect, useState } from 'react';
+import { redirect } from 'react-router-dom';
+import { paths } from '../../../utils/constant/path-config';
 
-export function AuthProvider(props) {
+function AuthProvider(props) {
   const { children } = props;
 
   const [user, setUser] = useState({
@@ -16,6 +18,10 @@ export function AuthProvider(props) {
   const getUser = () => {
     try {
       const storage = localStorage.getItem(CONFIG.auth.storageKey);
+
+      if (!storage) {
+        return redirect(paths.auth.login);
+      }
 
       axiosInstance.defaults.headers.common.Authorization = `Bearer ${storage}`;
       const decode = jwtDecode(storage);
@@ -77,3 +83,5 @@ export function AuthProvider(props) {
     </AuthContext.Provider>
   );
 }
+
+export default AuthProvider;

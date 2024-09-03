@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { camelizeKeys } from 'humps';
+import { camelizeKeys, decamelizeKeys } from 'humps';
 import { CONFIG } from '../../utils/constant/global-config';
 
 const axiosInstance = axios.create({
@@ -8,6 +8,15 @@ const axiosInstance = axios.create({
 
 axiosInstance.interceptors.request.use(async config => {
   const newConfig = { ...config };
+
+  const storage = localStorage.getItem(CONFIG.auth.storageKey);
+  if (storage) {
+    newConfig.headers.Authorization = `Bearer ${storage}`;
+  }
+
+  if (config.data) {
+    newConfig.data = decamelizeKeys(config.data);
+  }
 
   return newConfig;
 });
@@ -28,6 +37,7 @@ axiosInstance.interceptors.response.use(
     const status = error.response?.status;
 
     if (status === 500) {
+      // eslint-disable-next-line no-throw-literal
       throw {
         error: 'Something went wrong',
         statusCode: 500,
