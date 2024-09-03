@@ -22,6 +22,8 @@ import {
 import { BoardUpdateDialog } from './BoardUpdateDialog';
 import { TaskCreateDialog } from '../../task/components/TaskCreateDialog';
 import { TaskCard } from '../../task/components/TaskCard';
+import { Draggable, Droppable } from 'react-beautiful-dnd';
+import { cn } from '../../../libs/tailwindcss/utils';
 
 const BoardCard = props => {
   const { board, onSuccess } = props;
@@ -73,22 +75,42 @@ const BoardCard = props => {
             <strong>End:</strong> {endDate}
           </p>
         </CardHeader>
-        <CardContent className="space-y-6">
-          {tasks.length === 0 ? (
-            <p className="text-sm text-muted-foreground text-center my-6">No items.</p>
-          ) : (
-            tasks.map(task => {
-              return (
-                <TaskCard
-                  key={`task-${task.id}`}
-                  task={task}
-                  onSuccess={() => {
-                    onSuccess();
-                  }}
-                />
-              );
-            })
-          )}
+        <CardContent>
+          <Droppable droppableId={id}>
+            {provided => (
+              <div {...provided.droppableProps} ref={provided.innerRef}>
+                {tasks.length === 0 ? (
+                  <p className="text-sm text-muted-foreground text-center my-6">No items.</p>
+                ) : (
+                  tasks.map((task, index) => {
+                    return (
+                      <Draggable key={`task-${task.id}`} draggableId={task.id} index={index}>
+                        {(provided, snapshot) => (
+                          <div
+                            ref={provided.innerRef}
+                            {...provided.draggableProps}
+                            {...provided.dragHandleProps}
+                            className={cn('mb-6', {
+                              'mb-0': index === tasks.length - 1,
+                            })}
+                          >
+                            <TaskCard
+                              task={task}
+                              onSuccess={() => {
+                                onSuccess();
+                              }}
+                            />
+                          </div>
+                        )}
+                      </Draggable>
+                    );
+                  })
+                )}
+
+                {provided.placeholder}
+              </div>
+            )}
+          </Droppable>
         </CardContent>
         <div className="px-3 pb-3">
           <Button

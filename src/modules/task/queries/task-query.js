@@ -45,4 +45,12 @@ export class TaskQuery {
       ...args?.options,
     });
   };
+
+  static useMove = args => {
+    return useMutation({
+      mutationKey: ['TaskQuery-move'],
+      mutationFn: TaskApi.move,
+      ...args?.options,
+    });
+  };
 }

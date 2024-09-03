@@ -51,4 +51,15 @@ export class TaskApi {
 
     return result.data;
   };
+
+  static move = async args => {
+    const result = await axiosInstance.post(endpoints.task.move, args.payload);
+
+    // NEED BUG FIX: The api doesn't support on http error code, remove the code when bug is fixed. The axios will automatically throw an error
+    if (!isSuccessStatusCode(result.data.statusCode)) {
+      throw result.data;
+    }
+
+    return result.data;
+  };
 }

@@ -18,5 +18,6 @@ export const endpoints = {
     create: '/task',
     update: id => `/task/${id}`,
     delete: id => `/task/${id}`,
+    move: '/task/move',
   },
 };
