@@ -39,7 +39,7 @@ axiosInstance.interceptors.response.use(
     if (status === 500) {
       // eslint-disable-next-line no-throw-literal
       throw {
-        error: 'Something went wrong',
+        message: 'Something went wrong',
         statusCode: 500,
       };
     }
