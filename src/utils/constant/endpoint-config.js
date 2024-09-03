@@ -11,4 +11,12 @@ export const endpoints = {
     update: id => `/board/${id}`,
     delete: id => `/board/${id}`,
   },
+
+  task: {
+    getAll: '/task',
+    getDetails: id => `/task/${id}`,
+    create: '/task',
+    update: id => `/task/${id}`,
+    delete: id => `/task/${id}`,
+  },
 };

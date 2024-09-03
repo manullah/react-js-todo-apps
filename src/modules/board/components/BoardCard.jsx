@@ -10,7 +10,7 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
 } from '../../../libs/shadcn-ui/components/alert-dialog';
-import { useBoardDeleteForm } from '../forms/use-board-delete-form';
+import { useBoardDeleteForm } from '../hooks/use-board-delete-form';
 import { Loading } from '../../../components/Loading';
 import { useState } from 'react';
 import {
@@ -20,6 +20,8 @@ import {
   DropdownMenuTrigger,
 } from '../../../libs/shadcn-ui/components/dropdown';
 import { BoardUpdateDialog } from './BoardUpdateDialog';
+import { TaskCreateDialog } from '../../task/components/TaskCreateDialog';
+import { TaskCard } from '../../task/components/TaskCard';
 
 const BoardCard = props => {
   const { board, onSuccess } = props;
@@ -29,6 +31,7 @@ const BoardCard = props => {
 
   const [updateDialog, setUpdateDialog] = useState(false);
   const [deleteDialog, setDeleteDialog] = useState(false);
+  const [createTaskDialog, setCreateTaskDialog] = useState(false);
 
   const { isLoading, onSubmit: handleDelete } = useBoardDeleteForm({
     onSuccess: () => {
@@ -76,23 +79,38 @@ const BoardCard = props => {
           ) : (
             tasks.map(task => {
               return (
-                <Card key={`task-${task.id}`}>
-                  <CardHeader>
-                    <p className="leading-7 [&:not(:first-child)]:mt-6">{task.name}</p>
-                    <p className="text-sm text-muted-foreground ">{task.progressPercentage}%</p>
-                  </CardHeader>
-                </Card>
+                <TaskCard
+                  key={`task-${task.id}`}
+                  task={task}
+                  onSuccess={() => {
+                    onSuccess();
+                  }}
+                />
               );
             })
           )}
         </CardContent>
         <div className="px-3 pb-3">
-          <Button size="lg" className="w-full">
+          <Button
+            variant="secondary"
+            size="lg"
+            className="w-full"
+            onClick={() => setCreateTaskDialog(true)}
+          >
             <PlusCircle className="mr-2" size={16} />
             Add
           </Button>
         </div>
       </Card>
+
+      <TaskCreateDialog
+        boardId={id}
+        open={createTaskDialog}
+        onOpenChange={setCreateTaskDialog}
+        onSuccess={() => {
+          onSuccess();
+        }}
+      />
 
       <BoardUpdateDialog
         board={board}

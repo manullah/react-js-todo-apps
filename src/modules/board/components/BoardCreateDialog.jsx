@@ -25,7 +25,7 @@ import {
   PopoverTrigger,
 } from '../../../libs/shadcn-ui/components/popover';
 import { Calendar } from '../../../libs/shadcn-ui/components/calendar';
-import { useBoardCreateForm } from '../forms/use-board-create-form';
+import { useBoardCreateForm } from '../hooks/use-board-create-form';
 import { cn } from '../../../libs/tailwindcss/utils';
 import { CalendarIcon } from 'lucide-react';
 
