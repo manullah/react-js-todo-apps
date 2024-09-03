@@ -1,7 +1,10 @@
+import { useToast } from '../../../libs/shadcn-ui/components/use-toast';
 import { TaskQuery } from '../queries/task-query';
 
 export const useTaskDeleteForm = props => {
   const { onSuccess } = props;
+
+  const { toast } = useToast();
 
   const mutation = TaskQuery.useDelete();
 
@@ -13,8 +16,19 @@ export const useTaskDeleteForm = props => {
       {
         onSuccess: data => {
           onSuccess(data);
+
+          toast({
+            title: 'Success',
+            description: 'Task deleted successfully.',
+          });
         },
-        onError: error => {},
+        onError: error => {
+          toast({
+            variant: 'destructive',
+            title: 'Failed',
+            description: 'Failed to delete task. Please try again.',
+          });
+        },
       }
     );
   };

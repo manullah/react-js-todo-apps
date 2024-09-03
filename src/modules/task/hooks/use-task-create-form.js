@@ -2,9 +2,12 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { useForm } from 'react-hook-form';
 import { number, object, string } from 'yup';
 import { TaskQuery } from '../queries/task-query';
+import { useToast } from '../../../libs/shadcn-ui/components/use-toast';
 
 export const useTaskCreateForm = props => {
   const { boardId, onSuccess } = props;
+
+  const { toast } = useToast();
 
   const schema = object({
     name: string().required('Name is required'),
@@ -43,8 +46,19 @@ export const useTaskCreateForm = props => {
       {
         onSuccess: data => {
           onSuccess(data);
+
+          toast({
+            title: 'Success',
+            description: 'Task created successfully.',
+          });
         },
-        onError: error => {},
+        onError: error => {
+          toast({
+            variant: 'destructive',
+            title: 'Failed',
+            description: 'Failed to create task. Please try again.',
+          });
+        },
       }
     );
   });

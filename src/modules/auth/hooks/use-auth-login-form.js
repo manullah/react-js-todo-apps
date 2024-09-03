@@ -3,11 +3,13 @@ import { useForm } from 'react-hook-form';
 import { object, string } from 'yup';
 import { AuthQuery } from '../queries/auth-query';
 import { useAuthContext } from './use-auth-context';
+import { useToast } from '../../../libs/shadcn-ui/components/use-toast';
 
 export const useAuthLoginForm = props => {
   const { onSuccess } = props;
 
   const { onSaveToken } = useAuthContext();
+  const { toast } = useToast();
 
   const schema = object({
     email: string().required('Email is required').email('Email must be a valid email address'),
@@ -38,11 +40,22 @@ export const useAuthLoginForm = props => {
         onSuccess: data => {
           onSuccess(data);
 
+          toast({
+            title: 'Success',
+            description: 'Login successful.',
+          });
+
           onSaveToken(data.token);
         },
         onError: error => {
           setError('email', {
             message: error.message,
+          });
+
+          toast({
+            variant: 'destructive',
+            title: 'Failed',
+            description: 'Login failed. Please try again.',
           });
         },
       }

@@ -20,7 +20,6 @@ import {
   DropdownMenuTrigger,
 } from '../../../libs/shadcn-ui/components/dropdown';
 import { TaskUpdateDialog } from './TaskUpdateDialog';
-// import { TaskUpdateDialog } from './TaskUpdateDialog';
 
 const TaskCard = props => {
   const { task, onSuccess } = props;
@@ -40,7 +39,7 @@ const TaskCard = props => {
   return (
     <>
       <Card>
-        <CardHeader className="flex flex-row justify-between gap-4">
+        <CardHeader className="flex flex-row justify-between gap-4 p-4">
           <div>
             <p className="leading-7 [&:not(:first-child)]:mt-6">{name}</p>
             <p className="text-sm text-muted-foreground ">{progressPercentage}%</p>

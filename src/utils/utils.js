@@ -17,3 +17,11 @@ export const jwtDecode = token => {
     throw error;
   }
 };
+
+export const isSuccessStatusCode = statusCode => {
+  if ([200, 201].includes(statusCode)) {
+    return true;
+  }
+
+  return false;
+};

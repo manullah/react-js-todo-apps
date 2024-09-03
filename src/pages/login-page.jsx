@@ -20,7 +20,6 @@ function LoginPage() {
 
   const { form, isLoading, onSubmit } = useAuthLoginForm({
     onSuccess: data => {
-      alert(data.message);
       navigate(paths.root);
     },
   });

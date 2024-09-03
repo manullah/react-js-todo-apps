@@ -3,9 +3,12 @@ import { useForm } from 'react-hook-form';
 import { object, string } from 'yup';
 import { BoardQuery } from '../queries/board-query';
 import { format } from 'date-fns/format';
+import { useToast } from '../../../libs/shadcn-ui/components/use-toast';
 
 export const useBoardUpdateForm = props => {
   const { board, onSuccess } = props;
+
+  const { toast } = useToast();
 
   const schema = object({
     title: string().required('Title is required'),
@@ -55,8 +58,19 @@ export const useBoardUpdateForm = props => {
       {
         onSuccess: data => {
           onSuccess(data);
+
+          toast({
+            title: 'Success',
+            description: 'Board updated successfully.',
+          });
         },
-        onError: error => {},
+        onError: error => {
+          toast({
+            variant: 'destructive',
+            title: 'Failed',
+            description: 'Failed to update board. Please try again.',
+          });
+        },
       }
     );
   });
