@@ -20,7 +20,6 @@ function RegisterPage() {
 
   const { form, isLoading, onSubmit } = useAuthRegisterForm({
     onSuccess: data => {
-      alert(data.message);
       navigate(paths.auth.login);
     },
   });
